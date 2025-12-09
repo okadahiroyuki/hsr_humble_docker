@@ -63,25 +63,10 @@ RUN apt update \
      ros-humble-desktop   python3-colcon-common-extensions python3-rosdep \
   && rm -rf /var/lib/apt/lists/*
 
-# Add user and group
-ARG UID
-ARG GID
-ARG USER_NAME
-ARG GROUP_NAME
-ARG PASSWORD
-RUN groupadd -g $GID $GROUP_NAME && \
-    useradd -m -s /bin/bash -u $UID -g $GID -G sudo $USER_NAME && \
-    echo $USER_NAME:$PASSWORD | chpasswd && \
-    echo "$USER_NAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-USER ${USER_NAME}
-
-RUN source /opt/ros/humble/setup.bash  \
-    && sudo apt-get update  \
-    && sudo rosdep init \
-    && rosdep update
-
-RUN mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src && \
-      git clone -b humble https://github.com/hsr-project/hsrb_controllers.git && \
+#RUN sudo rosdep init && rosdep update
+RUN source /opt/ros/humble/setup.bash && \
+    mkdir -p /ros2_ws/src && cd /ros2_ws/src && \
+    git clone -b humble https://github.com/hsr-project/hsrb_controllers.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_common.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_drivers.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_interfaces.git  && \
@@ -107,11 +92,25 @@ RUN mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src && \
       rm -rf hsrb_launch/hsrb_robot_launch && \
       rm -rf hsrb_simulator/hsrb_rviz_simulator && \
       rm -rf tmc_drivers/tmc_pgr_camera
-
-RUN cd ~/ros2_ws && \
-      source /opt/ros/humble/setup.bash && \
+RUN source /opt/ros/humble/setup.bash && \
+      cd /ros2_ws && \
+      apt update && \
       rosdep install --from-paths . -y --ignore-src && \
-      colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+      colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release       
+
+# Add user and group
+ARG UID
+ARG GID
+ARG USER_NAME
+ARG GROUP_NAME
+ARG PASSWORD
+RUN groupadd -g $GID $GROUP_NAME && \
+    useradd -m -s /bin/bash -u $UID -g $GID -G sudo $USER_NAME && \
+    echo $USER_NAME:$PASSWORD | chpasswd && \
+    echo "$USER_NAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+USER ${USER_NAME}
+
+
 
 
 # Config (if you wish)
@@ -200,7 +199,7 @@ RUN apt update \
      ros-humble-desktop   python3-colcon-common-extensions python3-rosdep python3-nose \
   && rm -rf /var/lib/apt/lists/*
 
-RUN sudo rosdep init && rosdep update
+#RUN sudo rosdep init && rosdep update
 RUN source /opt/ros/humble/setup.bash && \
     mkdir -p /ros2_ws/src && cd /ros2_ws/src && \
     git clone -b humble https://github.com/hsr-project/hsrb_controllers.git && \
@@ -209,7 +208,7 @@ RUN source /opt/ros/humble/setup.bash && \
       git clone -b humble https://github.com/hsr-project/hsrb_interfaces.git  && \
       git clone -b humble https://github.com/hsr-project/hsrb_launch.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_manipulation.git && \
-#      git clone -b humble https://github.com/hsr-project/hsrb_moveit.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_moveit.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_rosnav.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_simulator.git && \
       git clone -b humble https://github.com/hsr-project/hsr_common.git && \
@@ -235,7 +234,6 @@ RUN source /opt/ros/humble/setup.bash && \
       rosdep install --from-paths . -y --ignore-src && \
       colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release 
 
-  
 
 # Add user and group
 ARG UID
@@ -248,13 +246,6 @@ RUN groupadd -g $GID $GROUP_NAME && \
     echo $USER_NAME:$PASSWORD | chpasswd && \
     echo "$USER_NAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER ${USER_NAME}
-
-#RUN source /opt/ros/humble/setup.bash \
-#    && sudo apt-get update  \
-#    && sudo rosdep init \
-#    && rosdep update
-
-
 
 # Config (if you wish)
 RUN mkdir -p ~/.config/terminator/
