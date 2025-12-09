@@ -228,7 +228,8 @@ RUN source /opt/ros/humble/setup.bash && \
       git clone -b humble https://github.com/hsr-project/tmc_navigation.git && \
       rm -rf hsrb_launch/hsrb_robot_launch && \
       rm -rf hsrb_simulator/hsrb_rviz_simulator && \
-      rm -rf tmc_drivers/tmc_pgr_camera  && \
+      rm -rf tmc_drivers/tmc_pgr_camera
+RUN source /opt/ros/humble/setup.bash && \
       cd /ros2_ws && \
       rosdep install --from-paths . -y --ignore-src && \
       colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release 
