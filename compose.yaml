@@ -14,7 +14,7 @@ services:
     volumes:
       - ${WORKSPACE_DIR}:${HOME}/${WORKSPACE_DIR}
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - $HOME/.Xauthority:/${HOME}/.Xauthority
+#      - $HOME/.Xauthority:/${HOME}/.Xauthority
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     devices:
       - /dev/snd:/dev/snd
@@ -47,9 +47,9 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all        
-#      - MESA_LOADER_DRIVER_OVERRIDE=i965
+      - MESA_LOADER_DRIVER_OVERRIDE=i965
       - DISPLAY=${DISPLAY}
-      - XAUTHORITY={$HOME}/.Xauthority
+#      - XAUTHORITY={$HOME}/.Xauthority
       - NO_AT_BRIDGE=1
       - TZ=Asia/Tokyo
 
