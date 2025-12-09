@@ -1,8 +1,14 @@
-# hsr_humble_docker
-
-[hsr_ros2_doc](https://github.com/hsr-project/hsr_ros2_doc/tree/humble)
+# ROS2 Humble版のHSRをDockerで動かす
+[hsr_ros2_doc](https://github.com/hsr-project/hsr_ros2_doc/tree/humble)を参考
 
 ## Setup
+```
+git clone 
+cd
+make help
+
+```
+
 
 ## シミュレーションの起動
 ### Gazebo
