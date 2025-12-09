@@ -209,7 +209,7 @@ RUN source /opt/ros/humble/setup.bash && \
       git clone -b humble https://github.com/hsr-project/hsrb_interfaces.git  && \
       git clone -b humble https://github.com/hsr-project/hsrb_launch.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_manipulation.git && \
-      git clone -b humble https://github.com/hsr-project/hsrb_moveit.git && \
+#      git clone -b humble https://github.com/hsr-project/hsrb_moveit.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_rosnav.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_simulator.git && \
       git clone -b humble https://github.com/hsr-project/hsr_common.git && \
@@ -265,7 +265,7 @@ COPY assets/tmux.session.conf /home/$USER_NAME/.tmux.session.conf
 # .bashrc
 # .bashrc
 RUN echo "source /opt/ros/humble/setup.bash" >> /home/$USER_NAME/.bashrc
-RUN echo "source /home/${USER_NAME}/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
+RUN echo "source /ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
 
 
 # entrypoint
