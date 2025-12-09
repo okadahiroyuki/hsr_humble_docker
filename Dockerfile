@@ -261,7 +261,7 @@ COPY assets/tmux.session.conf /home/$USER_NAME/.tmux.session.conf
 # .bashrc
 # .bashrc
 RUN echo "source /opt/ros/humble/setup.bash" >> /home/$USER_NAME/.bashrc
-RUN echo "source ~/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
+RUN echo "source /hone/${USER_NAME}/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
 
 
 # entrypoint
