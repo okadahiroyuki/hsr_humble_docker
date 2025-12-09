@@ -199,7 +199,7 @@ RUN apt update \
      ros-humble-desktop   python3-colcon-common-extensions python3-rosdep python3-nose \
   && rm -rf /var/lib/apt/lists/*
 
-#RUN sudo rosdep init && rosdep update
+RUN sudo rosdep init && rosdep update
 RUN source /opt/ros/humble/setup.bash && \
     mkdir -p /ros2_ws/src && cd /ros2_ws/src && \
     git clone -b humble https://github.com/hsr-project/hsrb_controllers.git && \
