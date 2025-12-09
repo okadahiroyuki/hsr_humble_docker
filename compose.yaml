@@ -61,7 +61,6 @@ services:
       - ~/.Xauthority:/home/${USER_NAME}/.Xauthority
       - ${WORKSPACE_DIR}:${WORKSPACE_DIR}
       - /var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket
-      - ~/docker/tidbots_docker/hsr-tid:/home/$USER_NAME/catkin_ws/src
     devices:
       - /dev/snd:/dev/snd
       - /dev/dri:/dev/dri
