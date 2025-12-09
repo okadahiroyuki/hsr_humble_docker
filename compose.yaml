@@ -12,7 +12,7 @@ services:
       - DISPLAY=${DISPLAY}
       - NO_AT_BRIDGE=1
     volumes:
-      - ${WORKSPACE_DIR}:${WORKSPACE_DIR}
+      - ${WORKSPACE_DIR}:${HOME}/${WORKSPACE_DIR}
       - /tmp/.X11-unix:/tmp/.X11-unix
       - $HOME/.Xauthority:/${HOME}/.Xauthority
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -59,7 +59,7 @@ services:
       - /etc/asound.conf:/etc/asound.conf
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ~/.Xauthority:/home/${USER_NAME}/.Xauthority
-      - ${WORKSPACE_DIR}:${WORKSPACE_DIR}
+      - ${WORKSPACE_DIR}:${HOME}/${WORKSPACE_DIR}
       - /var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket
     devices:
       - /dev/snd:/dev/snd
