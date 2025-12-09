@@ -47,11 +47,12 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all        
-      - TZ= Asia/Tokyo
-      - MESA_LOADER_DRIVER_OVERRIDE=i965
+#      - MESA_LOADER_DRIVER_OVERRIDE=i965
       - DISPLAY=${DISPLAY}
       - XAUTHORITY={$HOME}/.Xauthority
       - NO_AT_BRIDGE=1
+      - TZ=Asia/Tokyo
+
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /etc/passwd:/etc/passwd:ro
