@@ -197,7 +197,7 @@ RUN apt update \
 #  && apt upgrade \
   && DEBIAN_FRONTEND=noninteractive \
   && apt install -y --no-install-recommends \
-     ros-humble-desktop   python3-colcon-common-extensions python3-rosdep \
+     ros-humble-desktop   python3-colcon-common-extensions python3-rosdep python3-nose \
   && rm -rf /var/lib/apt/lists/*
 
 RUN sudo rosdep init && rosdep update
