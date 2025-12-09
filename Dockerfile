@@ -86,8 +86,7 @@ COPY assets/tmux.session.conf /home/$USER_NAME/.tmux.session.conf
 
 # .bashrc
 RUN echo "source /opt/ros/humble/setup.bash" >> /home/$USER_NAME/.bashrc
-#RUN echo "source /home/${USER_NAME}/Dropbox/workspace/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
-#RUN echo "source ~/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
+RUN echo "source /share/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
 
 
 
@@ -186,7 +185,9 @@ COPY assets/tmux.conf /home/$USER_NAME/.tmux.conf
 COPY assets/tmux.session.conf /home/$USER_NAME/.tmux.session.conf 
 
 # .bashrc
+# .bashrc
 RUN echo "source /opt/ros/humble/setup.bash" >> /home/$USER_NAME/.bashrc
+RUN echo "source /share/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
 
 
 # entrypoint
