@@ -1,5 +1,5 @@
 services:
-    humble:
+    hsr:
         build:
             context: .
             target: cpu
@@ -9,8 +9,8 @@ services:
             - USER_NAME=$USER_NAME
             - GROUP_NAME=$GROUP_NAME
             - PASSWORD=$PASSWORD
-        image: okdhryk/ros:humble-desktop-full
-    humble-gpu:
+        image: okdhryk/ros:humble-hsr
+    hsr-gpu:
         build:
             context: .
             target: gpu
@@ -20,5 +20,5 @@ services:
             - USER_NAME=$USER_NAME
             - GROUP_NAME=$GROUP_NAME
             - PASSWORD=$PASSWORD           
-        image: okdhryk/cuda:12.9.1-cudnn-devel-humble-desktop-full
+        image: okdhryk/cuda:12.9.1-cudnn-devel-humble-hsr
 
