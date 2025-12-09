@@ -32,7 +32,7 @@ build_cpu: ## Build HSR Humble [CPU] Container
 
 build_gpu: ## Build HSR Humble [GPU] Container
 	docker compose  -f compose.build.yaml build hsr-gpu
-	@printf "\n\033[92mBuild Docker Image: okdhryk/ros:12.9.1-cudnn-devel-humble-hsr\033[0m\n"
+	@printf "\n\033[92mBuild Docker Image: okdhryk/cuda:12.9.1-cudnn-devel-humble-hsr\033[0m\n"
 
 run_cpu:  ## Run HSR Humble [CPU] Container
 	docker compose up -d hsr && docker compose exec -ti hsr tmux
@@ -40,5 +40,5 @@ run_cpu:  ## Run HSR Humble [CPU] Container
 
 run_gpu:  ## Run HSR Humble [GPU] Container
 	docker compose up -d hsr-gpu && docker compose exec -ti hsr-gpu tmux
-	@printf "\n\033[92mRun HSR Humble GPU : okdhryk/ros:13.0.1-cudnn-devel-humble\033[0m\n"
+	@printf "\n\033[92mRun HSR Humble GPU : okdhryk/cuda:12.9.1-cudnn-devel-humble-hsr\033[0m\n"
 
