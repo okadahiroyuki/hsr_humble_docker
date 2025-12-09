@@ -60,12 +60,6 @@ RUN apt update \
      ros-humble-desktop   python3-colcon-common-extensions \
   && rm -rf /var/lib/apt/lists/*
 
-
-
-
-
-
-
 # Add user and group
 ARG UID
 ARG GID
@@ -78,6 +72,37 @@ RUN groupadd -g $GID $GROUP_NAME && \
     echo "$USER_NAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER ${USER_NAME}
 
+RUN mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src && \
+      git clone -b humble https://github.com/hsr-project/hsrb_controllers.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_common.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_drivers.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_launch.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_manipulation.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_rosnav.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_simulator.git && \
+      git clone -b humble https://github.com/hsr-project/hsr_common.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_teleop.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_gazebo.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_teleop.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_common.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_common_msgs.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_drivers.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_database.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_manipulation.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_manipulation_base.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_manipulation_planner.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_realtime_control.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_voice.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_navigation.git && \
+      rm -rf hsrb_launch/hsrb_robot_launch && \
+      rm -rf hsrb_simulator/hsrb_rviz_simulator && \
+      rm -rf tmc_drivers/tmc_pgr_camera
+RUN cd ~/ros2_ws && \
+      source /opt/ros/humble/setup.bash && \
+      rosdep install --from-paths . -y --ignore-src && \
+      colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release && \
+
+
 # Config (if you wish)
 RUN mkdir -p ~/.config/terminator/
 COPY assets/terminator_config /home/$USER_NAME/.config/terminator/config 
@@ -86,7 +111,7 @@ COPY assets/tmux.session.conf /home/$USER_NAME/.tmux.session.conf
 
 # .bashrc
 RUN echo "source /opt/ros/humble/setup.bash" >> /home/$USER_NAME/.bashrc
-RUN echo "source /share/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
+RUN echo "source ~/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
 
 
 
@@ -178,6 +203,36 @@ RUN groupadd -g $GID $GROUP_NAME && \
     echo "$USER_NAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER ${USER_NAME}
 
+RUN mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src && \
+      git clone -b humble https://github.com/hsr-project/hsrb_controllers.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_common.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_drivers.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_launch.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_manipulation.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_rosnav.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_simulator.git && \
+      git clone -b humble https://github.com/hsr-project/hsr_common.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_teleop.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_gazebo.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_teleop.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_common.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_common_msgs.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_drivers.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_database.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_manipulation.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_manipulation_base.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_manipulation_planner.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_realtime_control.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_voice.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_navigation.git && \
+      rm -rf hsrb_launch/hsrb_robot_launch && \
+      rm -rf hsrb_simulator/hsrb_rviz_simulator && \
+      rm -rf tmc_drivers/tmc_pgr_camera
+RUN cd ~/ros2_ws && \
+      source /opt/ros/humble/setup.bash && \
+      rosdep install --from-paths . -y --ignore-src && \
+      colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release && \
+
 # Config (if you wish)
 RUN mkdir -p ~/.config/terminator/
 COPY assets/terminator_config /home/$USER_NAME/.config/terminator/config 
@@ -187,7 +242,7 @@ COPY assets/tmux.session.conf /home/$USER_NAME/.tmux.session.conf
 # .bashrc
 # .bashrc
 RUN echo "source /opt/ros/humble/setup.bash" >> /home/$USER_NAME/.bashrc
-RUN echo "source /share/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
+RUN echo "source ~/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
 
 
 # entrypoint
