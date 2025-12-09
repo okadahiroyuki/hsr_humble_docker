@@ -50,7 +50,7 @@ services:
       - TZ= Asia/Tokyo
       - MESA_LOADER_DRIVER_OVERRIDE=i965
       - DISPLAY=${DISPLAY}
-        #      - XAUTHORITY={$HOME}/.Xauthority
+      - XAUTHORITY={$HOME}/.Xauthority
       - NO_AT_BRIDGE=1
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro

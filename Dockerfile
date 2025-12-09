@@ -7,6 +7,8 @@ LABEL org.okadanet.vendor="Hiroyuki Okada" \
       org.okadanet.version="1.0.0" \
       org.okadanet.released="November 1, 2025"
 
+SHELL ["/bin/bash", "-c"]
+
 RUN sed -i.org -e 's|archive.ubuntu.com|ubuntutym.u-toyama.ac.jp|g' /etc/apt/sources.list
 RUN apt-get clean
 RUN /bin/echo -e "Acquire::http::Timeout \"300\";\n\
@@ -47,6 +49,7 @@ RUN apt-get update && apt-get install -y \
   terminator xterm nano vim htop \
   software-properties-common gdb valgrind sudo
 
+
 # Install ROS2
 RUN apt update \
   && apt install -y --no-install-recommends \
@@ -57,7 +60,7 @@ RUN apt update \
 #  && apt upgrade \
   && DEBIAN_FRONTEND=noninteractive \
   && apt install -y --no-install-recommends \
-     ros-humble-desktop   python3-colcon-common-extensions \
+     ros-humble-desktop   python3-colcon-common-extensions python3-rosdep \
   && rm -rf /var/lib/apt/lists/*
 
 # Add user and group
@@ -71,6 +74,11 @@ RUN groupadd -g $GID $GROUP_NAME && \
     echo $USER_NAME:$PASSWORD | chpasswd && \
     echo "$USER_NAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER ${USER_NAME}
+
+RUN source /opt/ros/humble/setup.bash  \
+    && sudo apt-get update  \
+    && sudo rosdep init \
+    && rosdep update
 
 RUN mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src && \
       git clone -b humble https://github.com/hsr-project/hsrb_controllers.git && \
@@ -97,10 +105,11 @@ RUN mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src && \
       rm -rf hsrb_launch/hsrb_robot_launch && \
       rm -rf hsrb_simulator/hsrb_rviz_simulator && \
       rm -rf tmc_drivers/tmc_pgr_camera
+
 RUN cd ~/ros2_ws && \
       source /opt/ros/humble/setup.bash && \
       rosdep install --from-paths . -y --ignore-src && \
-      colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release && \
+      colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 
 # Config (if you wish)
@@ -186,7 +195,7 @@ RUN apt update \
 #  && apt upgrade \
   && DEBIAN_FRONTEND=noninteractive \
   && apt install -y --no-install-recommends \
-     ros-humble-desktop   python3-colcon-common-extensions \
+     ros-humble-desktop   python3-colcon-common-extensions python3-rosdep \
   && rm -rf /var/lib/apt/lists/*
 
   
@@ -202,6 +211,11 @@ RUN groupadd -g $GID $GROUP_NAME && \
     echo $USER_NAME:$PASSWORD | chpasswd && \
     echo "$USER_NAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER ${USER_NAME}
+
+RUN source /opt/ros/humble/setup.bash \
+    && sudo apt-get update  \
+    && sudo rosdep init \
+    && rosdep update
 
 RUN mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src && \
       git clone -b humble https://github.com/hsr-project/hsrb_controllers.git && \
@@ -224,14 +238,15 @@ RUN mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src && \
       git clone -b humble https://github.com/hsr-project/tmc_manipulation_planner.git && \
       git clone -b humble https://github.com/hsr-project/tmc_realtime_control.git && \
       git clone -b humble https://github.com/hsr-project/tmc_voice.git && \
-      git clone -b humble https://github.com/hsr-project/tmc_navigation.git && \
+      git clone -b humble https://github.com/hsr-project/tmc_navigation.git  && \ 
       rm -rf hsrb_launch/hsrb_robot_launch && \
       rm -rf hsrb_simulator/hsrb_rviz_simulator && \
       rm -rf tmc_drivers/tmc_pgr_camera
+
 RUN cd ~/ros2_ws && \
       source /opt/ros/humble/setup.bash && \
       rosdep install --from-paths . -y --ignore-src && \
-      colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release && \
+      colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release 
 
 # Config (if you wish)
 RUN mkdir -p ~/.config/terminator/
