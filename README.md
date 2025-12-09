@@ -3,12 +3,20 @@
 
 ## Setup
 ```
-git clone 
-cd
-make help
+$ git clone https://github.com/okadahiroyuki/hsr_humble_docker.git
+$ cd hsr_humble
+$ nano .env 
+$ make help
+help                                       This help.
+build                                      Build All 
+build_cpu                                  Build HSR Humble [CPU] Container
+build_gpu                                  Build HSR Humble [GPU] Container
+run_cpu                                    Run HSR Humble [CPU] Container
+run_gpu                                    Run HSR Humble [GPU] Container
 
+$ make build_gpu
+$ make run_gpu
 ```
-
 
 ## シミュレーションの起動
 ### Gazebo
