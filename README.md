@@ -5,7 +5,8 @@
 ```
 $ git clone https://github.com/okadahiroyuki/hsr_humble_docker.git
 $ cd hsr_humble
-$ nano .env 
+$ nano .env
+$ nano compose.yaml
 $ make help
 help                                       This help.
 build                                      Build All 
