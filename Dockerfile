@@ -231,6 +231,7 @@ RUN source /opt/ros/humble/setup.bash && \
       rm -rf tmc_drivers/tmc_pgr_camera
 RUN source /opt/ros/humble/setup.bash && \
       cd /ros2_ws && \
+      apt update && \
       rosdep install --from-paths . -y --ignore-src && \
       colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release 
 
