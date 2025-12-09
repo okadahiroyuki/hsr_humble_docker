@@ -84,8 +84,10 @@ RUN mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src && \
       git clone -b humble https://github.com/hsr-project/hsrb_controllers.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_common.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_drivers.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_interfaces.git  && \
       git clone -b humble https://github.com/hsr-project/hsrb_launch.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_manipulation.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_moveit.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_rosnav.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_simulator.git && \
       git clone -b humble https://github.com/hsr-project/hsr_common.git && \
@@ -221,8 +223,10 @@ RUN mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src && \
       git clone -b humble https://github.com/hsr-project/hsrb_controllers.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_common.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_drivers.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_interfaces.git  && \
       git clone -b humble https://github.com/hsr-project/hsrb_launch.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_manipulation.git && \
+      git clone -b humble https://github.com/hsr-project/hsrb_moveit.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_rosnav.git && \
       git clone -b humble https://github.com/hsr-project/hsrb_simulator.git && \
       git clone -b humble https://github.com/hsr-project/hsr_common.git && \
@@ -238,7 +242,7 @@ RUN mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src && \
       git clone -b humble https://github.com/hsr-project/tmc_manipulation_planner.git && \
       git clone -b humble https://github.com/hsr-project/tmc_realtime_control.git && \
       git clone -b humble https://github.com/hsr-project/tmc_voice.git && \
-      git clone -b humble https://github.com/hsr-project/tmc_navigation.git  && \ 
+      git clone -b humble https://github.com/hsr-project/tmc_navigation.git && \
       rm -rf hsrb_launch/hsrb_robot_launch && \
       rm -rf hsrb_simulator/hsrb_rviz_simulator && \
       rm -rf tmc_drivers/tmc_pgr_camera
